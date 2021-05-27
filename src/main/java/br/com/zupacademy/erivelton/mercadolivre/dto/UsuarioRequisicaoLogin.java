@@ -4,14 +4,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import br.com.zupacademy.erivelton.mercadolivre.entidade.Usuario;
-import br.com.zupacademy.erivelton.mercadolivre.validacao.anotacao.UniqueValue;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-public class UsuarioRequisicao {
-
+public class UsuarioRequisicaoLogin {
+	
 	@Email
 	@NotBlank
-	@UniqueValue(classe = Usuario.class, atributo = "login")
 	private String login;
 	
 	@Size(min = 6)
@@ -26,4 +24,7 @@ public class UsuarioRequisicao {
 		return senha;
 	}
 
+	public UsernamePasswordAuthenticationToken converter() {
+		return new UsernamePasswordAuthenticationToken(this.login, this.senha);
+	}
 }
