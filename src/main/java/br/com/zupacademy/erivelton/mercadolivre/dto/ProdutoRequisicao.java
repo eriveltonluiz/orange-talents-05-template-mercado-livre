@@ -26,6 +26,7 @@ public class ProdutoRequisicao {
 	@Positive
 	private BigDecimal valor;
 
+	@NotNull
 	@PositiveOrZero
 	private Integer quantidadeDisponivel;
 
@@ -40,7 +41,7 @@ public class ProdutoRequisicao {
 	private Long categoriaId;
 
 	public ProdutoRequisicao(@NotBlank String nome, @NotNull @Positive BigDecimal valor,
-			@PositiveOrZero Integer quantidadeDisponivel, @NotBlank @Size(max = 1000) String descricao,
+			@NotNull @PositiveOrZero Integer quantidadeDisponivel, @NotBlank @Size(max = 1000) String descricao,
 			@Size(min = 3) Set<CaracteristicaRequisicao> caracteristicas, @Size(min = 3) Long categoriaId) {
 		this.nome = nome;
 		this.valor = valor;
