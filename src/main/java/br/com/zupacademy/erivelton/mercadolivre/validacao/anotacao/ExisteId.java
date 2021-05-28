@@ -13,7 +13,7 @@ import br.com.zupacademy.erivelton.mercadolivre.validacao.validador.IDValidacao;
 
 @Documented
 @Constraint(validatedBy = { IDValidacao.class })
-@Target(ElementType.FIELD)
+@Target(value = {ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExisteId {
 

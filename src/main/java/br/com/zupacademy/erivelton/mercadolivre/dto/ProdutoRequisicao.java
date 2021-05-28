@@ -58,10 +58,9 @@ public class ProdutoRequisicao {
 		Set<Caracteristica> caracteristicasEntidade = new HashSet<Caracteristica>();
 		Produto produto = new Produto(nome, valor, quantidadeDisponivel, descricao, caracteristicasEntidade, categoria, usuario);
 
-		caracteristicasEntidade = caracteristicas.stream().map(caracteristica -> {
-			Caracteristica c = new Caracteristica(caracteristica.getNome(), caracteristica.getDescricao(), produto);
-			return c;
-		}).collect(Collectors.toSet());
+		caracteristicasEntidade = caracteristicas.stream()
+				.map(caracteristica -> new Caracteristica(caracteristica.getNome(), caracteristica.getDescricao(), produto))
+				.collect(Collectors.toSet());
 
 		produto.adicionarCaracteristicasAoTodo(caracteristicasEntidade);
 		
