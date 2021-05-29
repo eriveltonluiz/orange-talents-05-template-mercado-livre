@@ -21,6 +21,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.zupacademy.erivelton.mercadolivre.dto.EmailPergunta;
+import br.com.zupacademy.erivelton.mercadolivre.dto.PerguntaRequisicao;
+
 @Entity
 public class Produto {
 	
@@ -85,6 +88,10 @@ public class Produto {
 				.map(imagem -> new Imagem("https://www.produtos.com/" + imagem.getOriginalFilename(), this))
 				.collect(Collectors.toSet()));
 	}
+	
+	public EmailPergunta dadosEmail(Usuario usuarioLogado, PerguntaRequisicao pergunta) {
+		return new EmailPergunta(pergunta.getTitulo(), usuarioLogado.getUsername(), this.usuario.getUsername());
+	}
 
 	@Override
 	public String toString() {
@@ -119,6 +126,5 @@ public class Produto {
 	public boolean verificarDono(Usuario usuarioLogado) {
 		return this.usuario.equals(usuarioLogado);
 	}
-
 
 }
