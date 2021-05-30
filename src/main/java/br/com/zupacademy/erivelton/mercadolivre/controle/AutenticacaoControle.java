@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zupacademy.erivelton.mercadolivre.config.seguranca.TokenComponent;
-import br.com.zupacademy.erivelton.mercadolivre.dto.UsuarioRequisicaoLogin;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.UsuarioRequisicaoLogin;
 
 @RestController
 public class AutenticacaoControle {

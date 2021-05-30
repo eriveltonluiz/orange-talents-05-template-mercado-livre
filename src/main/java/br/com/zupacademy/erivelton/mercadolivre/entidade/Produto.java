@@ -1,7 +1,10 @@
 package br.com.zupacademy.erivelton.mercadolivre.entidade;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,8 +24,11 @@ import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.zupacademy.erivelton.mercadolivre.dto.EmailPergunta;
-import br.com.zupacademy.erivelton.mercadolivre.dto.PerguntaRequisicao;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.EmailPergunta;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.PerguntaRequisicao;
+import br.com.zupacademy.erivelton.mercadolivre.dto.resposta.CaracteristicasRespostaDTO;
+import br.com.zupacademy.erivelton.mercadolivre.dto.resposta.OpiniaoRespostaDTO;
+import br.com.zupacademy.erivelton.mercadolivre.dto.resposta.PerguntaDTO;
 
 @Entity
 public class Produto {
@@ -54,6 +60,12 @@ public class Produto {
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private Set<Imagem> imagens;
 	
+	@OneToMany(mappedBy = "produto")
+	private List<Opiniao> opinioes = new ArrayList<Opiniao>();
+	
+	@OneToMany(mappedBy = "produto")
+	private List<Pergunta> perguntas = new ArrayList<Pergunta>();
+	
 	@ManyToOne
 	private Categoria categoria;
 	
@@ -79,6 +91,55 @@ public class Produto {
 		this.usuario = usuario;
 	}
 	
+	public String getNome() {
+		return nome;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public BigDecimal getValor() {
+		return valor;
+	}
+	
+	public List<String> getLinksImagens() {
+		return imagens.stream()
+				.map(imagem -> imagem.getLinkImagem())
+				.collect(Collectors.toList());
+	}
+	
+	public List<CaracteristicasRespostaDTO> getCaracteristicasDTO() {
+		return caracteristicas.stream()
+				.map(c -> new CaracteristicasRespostaDTO(c.getNome(), c.getDescricao()))
+				.collect(Collectors.toList());
+	}
+	
+	public List<OpiniaoRespostaDTO> getOpinioesDTO() {
+		return opinioes.stream()
+				.map(prod -> new OpiniaoRespostaDTO(prod.getTitulo(), prod.getDescricao()))
+				.collect(Collectors.toList());
+	}
+	
+	public int quantidadeNotas() {
+		return opinioes.size();
+	}
+	
+	public BigDecimal mediaNotasOpinioes() {
+		Double media = opinioes.stream()
+				.mapToDouble(o -> o.getNota().doubleValue())
+				.average()
+				.getAsDouble();
+		
+		return new BigDecimal(media).setScale(2, RoundingMode.HALF_EVEN);
+	}
+	
+	public List<PerguntaDTO> getPerguntasDTO() {
+		return perguntas.stream()
+				.map(pergunta -> new PerguntaDTO(pergunta.getTitulo(), pergunta.getUsuarioLogin()))
+				.collect(Collectors.toList());
+	}
+	
 	public void adicionarCaracteristicasAoTodo(Set<Caracteristica> caracteristicas) {
 		this.caracteristicas.addAll(caracteristicas);
 	}
@@ -91,6 +152,10 @@ public class Produto {
 	
 	public EmailPergunta dadosEmail(Usuario usuarioLogado, PerguntaRequisicao pergunta) {
 		return new EmailPergunta(pergunta.getTitulo(), usuarioLogado.getUsername(), this.usuario.getUsername());
+	}
+
+	public boolean verificarDono(Usuario usuarioLogado) {
+		return this.usuario.equals(usuarioLogado);
 	}
 
 	@Override
@@ -121,10 +186,6 @@ public class Produto {
 		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
-	}
-
-	public boolean verificarDono(Usuario usuarioLogado) {
-		return this.usuario.equals(usuarioLogado);
 	}
 
 }

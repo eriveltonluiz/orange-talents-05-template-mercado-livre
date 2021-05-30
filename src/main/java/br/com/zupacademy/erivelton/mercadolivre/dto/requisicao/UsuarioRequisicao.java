@@ -1,4 +1,4 @@
-package br.com.zupacademy.erivelton.mercadolivre.dto;
+package br.com.zupacademy.erivelton.mercadolivre.dto.requisicao;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

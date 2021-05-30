@@ -1,4 +1,4 @@
-package br.com.zupacademy.erivelton.mercadolivre.dto;
+package br.com.zupacademy.erivelton.mercadolivre.dto.requisicao;
 
 import java.math.BigDecimal;
 

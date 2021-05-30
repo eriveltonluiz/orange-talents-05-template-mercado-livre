@@ -48,6 +48,18 @@ public class Opiniao {
 		this.usuario = usuario;
 		this.produto = produto;
 	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public BigDecimal getNota() {
+		return nota;
+	}
 
 	@Override
 	public String toString() {

@@ -29,4 +29,8 @@ public class Imagem {
 		this.produto = produto;
 	}
 	
+	public String getLinkImagem() {
+		return linkImagem;
+	}
+	
 }

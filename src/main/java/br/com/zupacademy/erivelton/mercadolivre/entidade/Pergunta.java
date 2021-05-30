@@ -28,8 +28,11 @@ public class Pergunta {
 	@ManyToOne
 	private Produto produto;
 
+	@Deprecated
+	public Pergunta() {
+	}
+	
 	public Pergunta(@NotBlank String titulo, Usuario usuario, Produto produto) {
-		super();
 		this.titulo = titulo;
 		this.usuario = usuario;
 		this.produto = produto;
@@ -38,6 +41,14 @@ public class Pergunta {
 	@Override
 	public String toString() {
 		return "Pergunta [titulo=" + titulo + "]";
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+	
+	public String getUsuarioLogin() {
+		return usuario.getUsername();
 	}
 	
 }

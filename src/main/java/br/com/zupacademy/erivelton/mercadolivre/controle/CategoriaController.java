@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zupacademy.erivelton.mercadolivre.dto.CategoriaRequisicao;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.CategoriaRequisicao;
 import br.com.zupacademy.erivelton.mercadolivre.entidade.Categoria;
 
 @RestController

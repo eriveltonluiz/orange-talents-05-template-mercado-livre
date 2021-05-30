@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zupacademy.erivelton.mercadolivre.dto.EmailPergunta;
-import br.com.zupacademy.erivelton.mercadolivre.dto.PerguntaRequisicao;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.EmailPergunta;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.PerguntaRequisicao;
 import br.com.zupacademy.erivelton.mercadolivre.entidade.Pergunta;
 import br.com.zupacademy.erivelton.mercadolivre.entidade.Produto;
 import br.com.zupacademy.erivelton.mercadolivre.entidade.Usuario;

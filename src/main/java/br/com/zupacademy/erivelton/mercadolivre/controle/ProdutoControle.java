@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.zupacademy.erivelton.mercadolivre.dto.ImagemRequisicao;
-import br.com.zupacademy.erivelton.mercadolivre.dto.ProdutoRequisicao;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.ImagemRequisicao;
+import br.com.zupacademy.erivelton.mercadolivre.dto.requisicao.ProdutoRequisicao;
 import br.com.zupacademy.erivelton.mercadolivre.entidade.Categoria;
 import br.com.zupacademy.erivelton.mercadolivre.entidade.Produto;
 import br.com.zupacademy.erivelton.mercadolivre.entidade.Usuario;
-import br.com.zupacademy.erivelton.mercadolivre.validacao.anotacao.ExisteId;
 
 @RestController
 @RequestMapping(value = "/produtos")
@@ -43,7 +42,6 @@ public class ProdutoControle {
 	 
 	@PostMapping(value = "/imagens/{id}")
 	@Transactional
-	@ExisteId(classe = Produto.class)
 	public void imagem(@Valid ImagemRequisicao requisicao, @PathVariable Long id, @AuthenticationPrincipal Usuario usuarioLogado) throws IOException {
 		Produto produto = em.find(Produto.class, id);
 		
