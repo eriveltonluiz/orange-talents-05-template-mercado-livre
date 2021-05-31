@@ -91,6 +91,10 @@ public class Produto {
 		this.usuario = usuario;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -156,6 +160,14 @@ public class Produto {
 
 	public boolean verificarDono(Usuario usuarioLogado) {
 		return this.usuario.equals(usuarioLogado);
+	}
+	
+	public boolean abaterEstoque(Integer qtdSolicitada) {
+		if(this.quantidadeDisponivel >= qtdSolicitada) {
+			this.quantidadeDisponivel -= qtdSolicitada;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
